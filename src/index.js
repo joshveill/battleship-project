@@ -1,5 +1,14 @@
 import { Ship } from "./factories/ship.js";
+import { Gameboard } from "./factories/gameboard.js";
 
-let carrier = Ship("carrier");
+let g = Gameboard();
 
-console.log(carrier.length);
+g.placeShip(4, 4, 4, "h");
+console.log(g.board[4][4]);
+
+console.log(g.board[4][4]);
+console.log(g.board[4][5]);
+console.log(g.board[4][6]);
+console.log(g.board[4][7]);
+
+console.log(g.board);

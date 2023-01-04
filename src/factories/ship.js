@@ -1,17 +1,20 @@
-import { SHIP_LENGTHS } from "../helper.js";
+const Ship = (l) => {
+  //properties
+  const length = l;
+  let boatHitMap = [...Array(l).keys()];
 
-export const Ship = (typeOfShip) => {
-  //Ship's basic properties
-  const id = typeOfShip;
-  const length = SHIP_LENGTHS[typeOfShip];
+  let domTargets = [];
 
-  //Logic for hit on boat
-  const hits = Array(length).fill(null);
-  const hit = (i) => (hits[i] = "hit");
-  const getHits = () => hits;
+  // replace hit pos by "hit"
+  let hit = (pos) => {
+    if (boatHitMap[pos] == "hit") return false;
+    boatHitMap.splice(pos, 1, "hit");
+  };
 
-  //logic for if the boat has sinked
-  const isSunk = () => hits.every((x) => x === "hit");
+  // checks if ship is sunk
+  let isSunk = () => boatHitMap.every((x) => x === "hit");
 
-  return { id, length, hit, getHits, isSunk };
+  return { boatHitMap, length, hit, isSunk, domTargets };
 };
+
+export { Ship };
