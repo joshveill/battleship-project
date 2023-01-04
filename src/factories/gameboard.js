@@ -49,7 +49,8 @@ let Gameboard = () => {
 
       for (let i = pos1; i < pos1 + ship.length; i++) {
         board[i].splice(pos2, 1, { ship, shipPos });
-        reserveAround(pos1 + shipPos, pos2); //reserve pos
+        //reserve pos
+        reserveAround(pos1 + shipPos, pos2);
         shipPos++;
       }
     }
@@ -62,22 +63,22 @@ let Gameboard = () => {
       if (board[pos1 + n1][pos2 + n2] === false)
         board[pos1 + n1][pos2 + n2] = "res";
     }
-    function reserveCell(row) {
-      cell(row, -1);
-      cell(row, 0);
-      cell(row, 1);
+    function reserveCell(resCell) {
+      cell(resCell, -1);
+      cell(resCell, 0);
+      cell(resCell, 1);
     }
     reserveCell(-1);
     reserveCell(0);
     reserveCell(1);
   };
 
-  // calls ship.hit() on specific POS, returns POS if ship missed
+  // calls ship.hit() on specific pos, returns pos if ship missed
   let receiveAttack = (pos1, pos2) => {
     if (board[pos1][pos2] === "miss") return false;
     if (
       typeof board[pos1][pos2] == "object" &&
-      board[pos1][pos2].ship.tiles[board[pos1][pos2].shipPos] === "hit"
+      board[pos1][pos2].ship.boatHitMap[board[pos1][pos2].shipPos] === "hit"
     )
       return false;
 
@@ -86,13 +87,15 @@ let Gameboard = () => {
       return board[pos1][pos2];
     } else {
       board[pos1][pos2].ship.hit(board[pos1][pos2].shipPos);
-      return board[pos1][pos2].ship.tiles[board[pos1][pos2].shipPos];
+      return board[pos1][pos2].ship.boatHitMap[board[pos1][pos2].shipPos];
     }
   };
+
   // calls Ship.isSunk to return if ship at pos is sunk
   let isSunk = (pos1, pos2) => {
     return board[pos1][pos2].ship.isSunk() === true ? true : false;
   };
+
   // returns true if all ships on the board sunk
   let areAllSunk = (board) => {
     let notSunk = false;

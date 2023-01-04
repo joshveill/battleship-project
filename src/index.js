@@ -3,12 +3,9 @@ import { Gameboard } from "./factories/gameboard.js";
 
 let g = Gameboard();
 
-g.placeShip(4, 4, 4, "h");
-console.log(g.board[4][4]);
+g.placeShip(2, 2, 4, "h");
 
-console.log(g.board[4][4]);
-console.log(g.board[4][5]);
-console.log(g.board[4][6]);
-console.log(g.board[4][7]);
+g.receiveAttack(2, 3);
 
 console.log(g.board);
+
